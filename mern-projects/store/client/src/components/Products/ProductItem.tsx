@@ -1,12 +1,17 @@
+import { useContext } from 'react';
 import { Stack, Typography, Chip, Button, Card, CardMedia } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { IProduct } from '../../types/product';
+import { CartContext } from '../../context/cart/CartContext';
+import { CartContextType } from '../../types/cart';
 
 type ProductItemProps = {
   product: IProduct;
 };
 
 const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
+  const { addToCart } = useContext(CartContext) as CartContextType;
+
   return (
     <Card variant="outlined" sx={{ m: '10px' }}>
       <Stack sx={{ position: 'relative' }}>
@@ -30,7 +35,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
             </Typography>
             <Chip label={product.company} color="primary" sx={{ textTransform: "capitalize" }} />
           </Stack>
-          <Button size="small" variant="contained" >Add to cart</Button>
+          <Button size="small" variant="contained" onClick={() => addToCart(product)}>Add to cart</Button>
         </Stack>
       </Stack>
     </Card>

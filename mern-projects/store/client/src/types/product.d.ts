@@ -12,5 +12,6 @@ export interface IProduct {
 export type ProductContextType = {
   products: IProduct[];
   getProducts: (url: string) => Promise<void>;
+  numOfPages: number;
   loading: boolean;
 };

@@ -1,6 +1,6 @@
 import { Box, Typography, Link, Card } from '@mui/material';
 import Logo from './Logo';
-import Cart from './Cart';
+import Cart from '../Cart/CartButton';
 
 const Header: React.FC = () => {
   return (

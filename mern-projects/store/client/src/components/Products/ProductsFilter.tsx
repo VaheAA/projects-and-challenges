@@ -25,7 +25,7 @@ const ProductsFilter: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [priceRange, setPriceRange] = useState<number | undefined>();
   const [company, setCompany] = useState<string>('');
-  const [rating, setRating] = useState<string | undefined>();
+  const [rating, setRating] = useState<string | undefined>('');
   const [featured, setFeatured] = useState<boolean>(false);
   const [sort, setSort] = useState<string[]>([]);
   const [disabled, setDisabled] = useState<boolean>(true);
@@ -74,10 +74,13 @@ const ProductsFilter: React.FC = () => {
         name !== '' ||
         priceRange !== undefined ||
         company !== '' ||
+        featured !== false ||
         rating !== undefined ||
-        sort.length > 0
+        sort.length !== 0
       );
     });
+
+    console.log(disabled);
   }, [name, priceRange, company, rating, sort, featured]);
 
 
@@ -105,6 +108,9 @@ const ProductsFilter: React.FC = () => {
       ];
       query.append('numericFilters', numericFilters.toString());
     }
+    if (sort.length > 0) {
+      query.append('sort', sort.toString());
+    }
 
     await getProducts(`http://localhost:3000/api/v1/products?${query}`);
 
@@ -120,7 +126,6 @@ const ProductsFilter: React.FC = () => {
         <FormControl variant="standard">
           <Slider
             getAriaLabel={() => 'Minimum distance'}
-            value={priceRange}
             onChange={handleChange}
             max={maxPrice}
             valueLabelDisplay="auto"
@@ -179,7 +184,7 @@ const ProductsFilter: React.FC = () => {
             ))}
           </Select>
         </FormControl>
-        <Button disabled={!disabled} type="submit" variant="outlined" size="small">Filter products</Button>
+        <Button disabled={disabled} type="submit" variant="outlined" size="small">Filter products</Button>
       </Stack>
     </Box>
   </Box>;

@@ -66,7 +66,13 @@ const getAllProducts = async (req, res) => {
   result = result.skip(skip).limit(limit);
   const products = await result;
 
-  res.status(200).json({ nbHits: products.length, data: products });
+  async function numberOfPages(limit) {
+    const count = await Product.countDocuments();
+    return Math.ceil(count / limit);
+  }
+
+  const numOfPages = await numberOfPages(limit);
+  res.status(200).json({ numOfPages: numOfPages, data: products });
 };
 
 module.exports = {

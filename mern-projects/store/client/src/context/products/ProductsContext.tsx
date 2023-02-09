@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useReducer, useState } from 'react';
+import { createContext, ReactNode, useState } from 'react';
 import { IProduct, ProductContextType } from '../../types/product';
 
 
@@ -11,6 +11,7 @@ export const ProductsContext = createContext<ProductContextType | null>(null);
 
 export const ProductsProvider: React.FC<ContextProps> = ({ children }) => {
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [numOfPages, setNumOfPages] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
 
@@ -20,6 +21,7 @@ export const ProductsProvider: React.FC<ContextProps> = ({ children }) => {
       const res = await fetch(url);
       const data = await res.json();
       setProducts(data.data);
+      setNumOfPages(data.numOfPages);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -33,6 +35,7 @@ export const ProductsProvider: React.FC<ContextProps> = ({ children }) => {
         products,
         loading,
         getProducts,
+        numOfPages
       }}>
       {children}
     </ProductsContext.Provider>

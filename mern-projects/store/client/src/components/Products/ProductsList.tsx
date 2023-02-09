@@ -9,7 +9,7 @@ import LoadingSpinner from '../UI/LoadingSpinner';
 const ProductsList: React.FC = () => {
   const [page, setPage] = useState(1);
 
-  const { getProducts, products, loading } = useContext(ProductsContext) as ProductContextType;
+  const { getProducts, products, loading, numOfPages } = useContext(ProductsContext) as ProductContextType;
 
   useEffect(() => {
     const sendRequest = async () => {
@@ -32,7 +32,7 @@ const ProductsList: React.FC = () => {
         </Grid>
       ))}
     </Grid>}
-    <Pagination color="primary" count={3} page={page} onChange={onPageChange} />
+    <Pagination color="primary" count={numOfPages} page={page} onChange={onPageChange} />
   </Box>;
 };
 
