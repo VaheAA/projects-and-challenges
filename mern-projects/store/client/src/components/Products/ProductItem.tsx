@@ -13,13 +13,13 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   const { addToCart } = useContext(CartContext) as CartContextType;
 
   return (
-    <Card variant="outlined" sx={{ m: '10px' }}>
+    <Card variant="outlined" >
       <Stack sx={{ position: 'relative' }}>
         <CardMedia image="https://picsum.photos/200/300" title={product.name} sx={{ display: 'block', height: '250px', objectFit: 'cover' }} />
         {product.featured &&
           <Chip label="Featured" color="warning" sx={{ position: 'absolute', top: '10px', left: '10px' }} />
         }
-        <Stack p={1}>
+        <Stack px={1} pb={1}>
           <Stack direction="row" justifyContent="space-between" alignItems="center" mt={1}>
             <Typography variant="h6" textTransform="capitalize">
               {product.name}

@@ -28,7 +28,7 @@ const ProductsFilter: React.FC = () => {
   const [rating, setRating] = useState<string | undefined>('');
   const [featured, setFeatured] = useState<boolean>(false);
   const [sort, setSort] = useState<string[]>([]);
-  const [disabled, setDisabled] = useState<boolean>(true);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   const { getProducts, products } = useContext(ProductsContext) as ProductContextType;
 
@@ -68,6 +68,7 @@ const ProductsFilter: React.FC = () => {
   };
 
 
+
   useEffect(() => {
     setDisabled(() => {
       return (
@@ -75,14 +76,13 @@ const ProductsFilter: React.FC = () => {
         priceRange !== undefined ||
         company !== '' ||
         featured !== false ||
-        rating !== undefined ||
-        sort.length !== 0
+        rating !== '' ||
+        sort.length > 0
       );
     });
 
-    console.log(disabled);
-  }, [name, priceRange, company, rating, sort, featured]);
 
+  }, [name, priceRange, company, rating, sort, featured]);
 
 
   const onSubmitFilters = async (e: React.SyntheticEvent) => {
@@ -109,14 +109,15 @@ const ProductsFilter: React.FC = () => {
       query.append('numericFilters', numericFilters.toString());
     }
     if (sort.length > 0) {
-      query.append('sort', sort.toString());
+      query.append('sort', `${sort.toString()}`);
     }
 
     await getProducts(`http://localhost:3000/api/v1/products?${query}`);
 
   };
 
-  return <Box component="aside">
+  return <Box component="aside" sx={{ position: 'sticky', top: 0 }}>
+    <Typography variant="subtitle1" mb={2}>Filters</Typography>
     <Box component="form" autoComplete="off" noValidate onSubmit={onSubmitFilters}>
       <Stack spacing={3}>
         <FormControl>
@@ -184,7 +185,7 @@ const ProductsFilter: React.FC = () => {
             ))}
           </Select>
         </FormControl>
-        <Button disabled={disabled} type="submit" variant="outlined" size="small">Filter products</Button>
+        <Button disabled={!disabled} type="submit" variant="outlined" size="small">Filter products</Button>
       </Stack>
     </Box>
   </Box>;

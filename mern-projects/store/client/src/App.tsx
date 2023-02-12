@@ -13,13 +13,13 @@ function App() {
     <CartProvider>
       <ProductsProvider>
         <CssBaseline />
-        <Container fixed maxWidth="lg">
+        <Container fixed maxWidth="xl">
           <Header />
-          <Box display="grid" component="main" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
-            <Box gridColumn="span 2">
+          <Box mt={3} mb={3} display="grid" component="main" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
+            <Box gridColumn="span 3">
               <ProductsFilter />
             </Box>
-            <Box gridColumn="span 10">
+            <Box gridColumn="span 9">
               <ProductsList />
             </Box>
           </Box>

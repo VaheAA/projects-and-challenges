@@ -2,7 +2,7 @@ import { useEffect, useContext, useState } from 'react';
 import { ProductsContext } from '../../context/products/ProductsContext';
 import { ProductContextType } from '../../types/product';
 import ProductItem from './ProductItem';
-import { Grid, Box, Pagination } from '@mui/material';
+import { Grid, Box, Pagination, Stack } from '@mui/material';
 import LoadingSpinner from '../UI/LoadingSpinner';
 
 
@@ -23,16 +23,18 @@ const ProductsList: React.FC = () => {
     setPage(value);
   };
 
-  return <Box sx={{ height: '100vh' }}>
+  return <Box >
     {loading && <LoadingSpinner />}
-    {!loading && <Grid container spacing={2}>
+    {!loading && <Grid container mb={2} spacing={2}>
       {products.map(product => (
         <Grid key={product._id} item xs={4}>
           <ProductItem product={product} />
         </Grid>
       ))}
     </Grid>}
-    <Pagination color="primary" count={numOfPages} page={page} onChange={onPageChange} />
+    <Stack direction="row" justifyContent="center">
+      <Pagination color="primary" count={numOfPages} page={page} onChange={onPageChange} />
+    </Stack>
   </Box>;
 };
 

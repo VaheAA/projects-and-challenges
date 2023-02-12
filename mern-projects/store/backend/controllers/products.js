@@ -63,13 +63,13 @@ const getAllProducts = async (req, res) => {
   const limit = Number(req.query.limit) || 10;
   const skip = (page - 1) * limit;
 
-  result = result.skip(skip).limit(limit);
-  const products = await result;
-
   async function numberOfPages(limit) {
     const count = await Product.countDocuments();
     return Math.ceil(count / limit);
   }
+
+  result = result.skip(skip).limit(limit);
+  const products = await result;
 
   const numOfPages = await numberOfPages(limit);
   res.status(200).json({ numOfPages: numOfPages, data: products });
