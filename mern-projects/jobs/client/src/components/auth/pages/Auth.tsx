@@ -45,13 +45,6 @@ export default function Auth(): JSX.Element {
       await registerUser(userData);
       console.log(error);
     }
-    if (!error) {
-      initAlert('success', `You were successfully ${isLoginMode ? 'logged in' : 'registered'}`);
-      navigate('/jobs');
-    } else {
-      initAlert('error', error?.response?.data.msg);
-    }
-
     reset();
   };
 
@@ -65,7 +58,6 @@ export default function Auth(): JSX.Element {
           <TextField error={errors.email && true} helperText={errors.email?.message} {...register('email')} id="email" name="email" type="email" label="Email" variant="outlined" />
           <TextField error={errors.password && true} helperText={errors.password?.message} {...register('password')} id="password" name="password" type="password" label="Password" variant="outlined" />
           <Button disabled={loading} type="submit" variant="contained" size="large">{isLoginMode ? 'Login' : 'Register'}</Button>
-          {error && <Typography color="error">{error.response?.data.msg}</Typography>}
         </Box>
         <Stack>
           <Typography variant="body1">Already have an account?
