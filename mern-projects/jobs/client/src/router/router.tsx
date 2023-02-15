@@ -1,4 +1,4 @@
-import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, Navigate, Route } from 'react-router-dom';
 import Auth from '../components/auth/pages/Auth';
 import NewJob from '../components/jobs/pages/NewJob';
 import Jobs from '../components/jobs/pages/Jobs';
@@ -11,6 +11,7 @@ import EditJob from '../components/jobs/pages/EditJob';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
+      <Route path="/" element={<Navigate to="/auth" />} />
       <Route element={<PrivateRoute />}>
         <Route path="/jobs" element={<Jobs />}>
           <Route path="/jobs/new-job" element={<NewJob />} />

@@ -45,6 +45,8 @@ export default function Auth(): JSX.Element {
       await registerUser(userData);
       console.log(error);
     }
+
+    navigate('/jobs');
     reset();
   };
 
