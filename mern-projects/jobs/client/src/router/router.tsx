@@ -11,7 +11,6 @@ import EditJob from '../components/jobs/pages/EditJob';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
-      <Route path="/" element={<Navigate to="/auth" />} />
       <Route element={<PrivateRoute />}>
         <Route path="/jobs" element={<Jobs />}>
           <Route path="/jobs/new-job" element={<NewJob />} />
