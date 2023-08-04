@@ -1,9 +1,4 @@
-import {
-  BadRequestException,
-  ConflictException,
-  HttpException,
-  Injectable
-} from '@nestjs/common';
+import { ConflictException, HttpException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
@@ -38,11 +33,11 @@ export class AuthService {
       throw new ConflictException('User already exists');
     }
 
-    const hashedPaspassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = await this.prismaService.user.create({
       data: {
         name,
-        password: hashedPaspassword,
+        password: hashedPassword,
         email,
         phone,
         user_type: userType
@@ -59,8 +54,8 @@ export class AuthService {
     });
     if (!user) throw new HttpException('Invalid credentials', 400);
 
-    const hashedPaspassword = user.password;
-    const isPasswordCorrect = await bcrypt.compare(password, hashedPaspassword);
+    const hashedPassword = user.password;
+    const isPasswordCorrect = await bcrypt.compare(password, hashedPassword);
     if (!isPasswordCorrect) throw new HttpException('Invalid credentials', 400);
 
     return await this.generateJWT(user.name, user.id);

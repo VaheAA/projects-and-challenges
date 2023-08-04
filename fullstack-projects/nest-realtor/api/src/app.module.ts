@@ -8,6 +8,6 @@ import { HomeModule } from './home/home.module';
 @Module({
   imports: [UserModule, PrismaModule, HomeModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService]
 })
 export class AppModule {}

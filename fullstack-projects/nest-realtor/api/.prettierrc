@@ -3,5 +3,5 @@
   "semi": true,
   "trailingComma": "none",
   "arrowParens": "avoid",
-  "endOfLine": "crlf"
+  "endOfLine": "auto"
 }
